@@ -35,9 +35,6 @@ public class PercentageCircle extends LinearLayout {
     private float percent = 0;
     private TextView percentText;
     private TextView totalUnitText;
-    private int percentTextSize;
-    private int totalUnitTextSize;
-    private ObjectAnimator animator;
 
     public PercentageCircle(Context context) {
         super(context);
@@ -66,6 +63,9 @@ public class PercentageCircle extends LinearLayout {
         circlePaint = new Paint();
         arcPaint = new Paint();
         rectF = new RectF();
+
+        int percentTextSize;
+        int totalUnitTextSize;
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PercentageCircle);
         try {
@@ -108,10 +108,9 @@ public class PercentageCircle extends LinearLayout {
             circlePaint.setAlpha(0x80);
         }
         arcPaint.setAntiAlias(true);
-        arcPaint.setColor(secondaryColor);
+        arcPaint.setColor(percentColor);
         arcPaint.setStyle(Paint.Style.STROKE);
         arcPaint.setStrokeWidth(20);
-        arcPaint.setColor(percentColor);
 
     }
 
