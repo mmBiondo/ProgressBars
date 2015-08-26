@@ -144,13 +144,18 @@ public class PercentageCircle extends LinearLayout {
                 canvas.drawArc(rectF, prevAngle, progressAngle, false, arcPaint);
 
                 if (progressAngle < sweepAngle) {
-                    progressAngle += getAngleIncrements();
-                    percentText.setText(String.format("%.0f", prevActualUnits++));
+                    progressAngle += 360f / 100f;
+                    if (progressAngle >= (getAngleIncrements() * prevActualUnits)) {
+                        percentText.setText(String.format("%.0f", prevActualUnits++));
+                        if (progressAngle > sweepAngle) {
+                            progressAngle = sweepAngle;
+                        }
+                    }
                     invalidate();
                 } else {
                     percentText.setText(String.format("%.0f", completedUnits));
-
                 }
+
             } else {
                 canvas.drawArc(rectF, prevAngle, sweepAngle, false, arcPaint);
                 percentText.setText(String.format("%.0f", completedUnits));
