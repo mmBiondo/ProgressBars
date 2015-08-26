@@ -1,6 +1,5 @@
 package com.example.megan.progressbarexamples.widgets;
 
-import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -63,6 +62,7 @@ public class PercentageCircle extends LinearLayout {
         circlePaint = new Paint();
         arcPaint = new Paint();
         rectF = new RectF();
+        bounds = new Rect();
 
         int percentTextSize;
         int totalUnitTextSize;
@@ -153,14 +153,15 @@ public class PercentageCircle extends LinearLayout {
     }
 
     private void fixFontPadding(TextView textView) {
-        bounds = new Rect();
 
         textView.setIncludeFontPadding(false); //remove the font padding
 
         textView.getPaint().getTextBounds(textView.getText().toString(), 0, textView.getText().length(), bounds);
 
         Paint.FontMetrics fm = textView.getPaint().getFontMetrics();
-        textView.setPadding(0, (int) (fm.ascent - bounds.top - 0.5), 0, 0);
+        int fontPadding  = (int) (fm.ascent - bounds.top - 0.5);
+
+        textView.setPadding(0, fontPadding, 0, fontPadding);
         textView.setGravity(textView.getGravity() | Gravity.TOP); //make sure that the gravity is set to the top
     }
 
