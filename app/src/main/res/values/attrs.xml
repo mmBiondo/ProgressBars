@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PercentageCircle">
+        <attr name="percentColor" format="color" />
+        <attr name="secondaryColor" format="color" />
+        <attr name="percentTextSize" format="dimension" />
+        <attr name="totalUnitTextSize" format="dimension" />
+        <attr name="percent" format="float" />
+    </declare-styleable>
+
+</resources>

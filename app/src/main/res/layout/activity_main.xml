@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <RelativeLayout
+        android:layout_width="20dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@color/material_blue_grey_900">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/material_blue_grey_800" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:padding="30dp">
+
+        <ProgressBar
+            android:id="@+id/vertical_progressbar"
+            style="@style/Widget.ProgressBar.Vertical"
+            android:layout_width="50dp"
+            android:layout_height="200dp"
+            android:progress="0" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.example.megan.progressbarexamples.widgets.PercentageCircle
+            android:id="@+id/first"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp" />
+
+        <com.example.megan.progressbarexamples.widgets.PercentageCircle
+            android:id="@+id/second"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="20dp"
+            android:background="@color/darkest_grey"
+            app:percentColor="@android:color/white"
+            app:percentTextSize="50sp"
+            app:totalUnitTextSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.example.megan.progressbarexamples.widgets.PercentageCircle
+            android:id="@+id/third"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:background="@color/darkest_grey"
+            app:percentColor="@android:color/white" />
+
+        <com.example.megan.progressbarexamples.widgets.PercentageCircle
+            android:id="@+id/fourth"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="20dp"
+            app:percentColor="@color/darker_grey"
+            app:percentTextSize="65sp"
+            app:totalUnitTextSize="30sp" />
+    </LinearLayout>
+
+</LinearLayout>
