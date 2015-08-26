@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         first.setPercent(75f);
         second.setFraction(1f, 4f);
         third.setPercent(45f);
-        fourth.setFraction(3f, 8f);
+        fourth.setFraction(20f, 30f);
 
     }
 

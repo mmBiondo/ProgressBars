@@ -6,7 +6,7 @@
         <attr name="secondaryColor" format="color" />
         <attr name="percentTextSize" format="dimension" />
         <attr name="totalUnitTextSize" format="dimension" />
-        <attr name="percent" format="float" />
+        <attr name="animated" format="boolean" />
     </declare-styleable>
 
 </resources>

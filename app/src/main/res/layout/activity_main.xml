@@ -66,7 +66,8 @@
             android:layout_height="100dp"
             android:layout_margin="20dp"
             android:background="@color/darkest_grey"
-            app:percentColor="@android:color/white" />
+            app:percentColor="@android:color/white"
+            app:animated="false"/>
 
         <com.example.megan.progressbarexamples.widgets.PercentageCircle
             android:id="@+id/fourth"

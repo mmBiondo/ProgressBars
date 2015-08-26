@@ -25,15 +25,24 @@ import java.text.NumberFormat;
  */
 public class PercentageCircle extends LinearLayout {
 
+    private static float DEFAULT_START_ANGLE = -90f;
+
     private Paint circlePaint;
     private Paint arcPaint;
     private RectF rectF;
     private Rect bounds;
     private int percentColor;
     private int secondaryColor;
-    private float percent = 0;
     private TextView percentText;
     private TextView totalUnitText;
+    private Float totalUnits;
+    private Float completedUnits;
+    private boolean animated;
+
+    private Float prevActualUnits;
+    private Float sweepAngle;
+    private Float progressAngle;
+    private Float prevAngle;
 
     public PercentageCircle(Context context) {
         super(context);
@@ -63,13 +72,15 @@ public class PercentageCircle extends LinearLayout {
         arcPaint = new Paint();
         rectF = new RectF();
         bounds = new Rect();
+        completedUnits = 0f;
+
 
         int percentTextSize;
         int totalUnitTextSize;
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PercentageCircle);
         try {
-            percent = a.getColor(R.styleable.PercentageCircle_percent, 0);
+            animated = a.getBoolean(R.styleable.PercentageCircle_animated, true);
             percentColor = a.getColor(R.styleable.PercentageCircle_percentColor, getResources().getColor(R.color.darker_grey));
             secondaryColor = a.getColor(R.styleable.PercentageCircle_secondaryColor, percentColor);
             percentTextSize = a.getDimensionPixelSize(R.styleable.PercentageCircle_percentTextSize, (int) getContext().getResources().getDimension(R.dimen.percent_text_size));
@@ -112,6 +123,10 @@ public class PercentageCircle extends LinearLayout {
         arcPaint.setStyle(Paint.Style.STROKE);
         arcPaint.setStrokeWidth(20);
 
+        prevAngle = DEFAULT_START_ANGLE;
+        sweepAngle = 0f;
+        progressAngle = 0f;
+        prevActualUnits = 0f;
     }
 
     @Override
@@ -120,36 +135,64 @@ public class PercentageCircle extends LinearLayout {
         rectF.set(10, 10, canvas.getWidth() - 10, canvas.getHeight() - 10);
         canvas.drawOval(rectF, circlePaint);
 
-        //Find arc
-        float start = -90; //0 is at 3 o'clock
-        float arcLength = ((percent * 360) / 100);
-
-        canvas.drawArc(rectF, start, arcLength, false, arcPaint);
-
         if (!isInEditMode()) {
             fixFontPadding(percentText);
             fixFontPadding(totalUnitText);
+
+            //Animation
+            if (animated) {
+                canvas.drawArc(rectF, prevAngle, progressAngle, false, arcPaint);
+
+                if (progressAngle < sweepAngle) {
+                    progressAngle += getAngleIncrements();
+                    percentText.setText(String.format("%.0f", prevActualUnits++));
+                    invalidate();
+                } else {
+                    percentText.setText(String.format("%.0f", completedUnits));
+
+                }
+            } else {
+                canvas.drawArc(rectF, prevAngle, sweepAngle, false, arcPaint);
+                percentText.setText(String.format("%.0f", completedUnits));
+            }
+
         }
     }
 
-    public void setFraction(Float numerator, Float denominator) {
+    private void updateMeter() {
+        if (prevAngle != DEFAULT_START_ANGLE) {
+            prevAngle = sweepAngle;
+        }
 
-        percent = (numerator / denominator) * 100;
-
-        NumberFormat format = NumberFormat.getIntegerInstance();
-
-        percentText.setText(format.format(numerator));
-        totalUnitText.setText("/" + format.format(denominator));
+        if (completedUnits == null) {
+            sweepAngle = 0f;
+        } else {
+            sweepAngle = completedUnits / (isPercentage() ? 100f : totalUnits) * 360.0f;
+        }
 
         invalidate();
     }
 
+    public void setFraction(Float numerator, Float denominator) {
+        prevActualUnits = 0f;
+        totalUnits = denominator;
+        completedUnits = numerator;
+        if (denominator != null) {
+            NumberFormat format = NumberFormat.getIntegerInstance();
+
+            totalUnitText.setText("/" + format.format(denominator));
+        } else {
+            totalUnitText.setText("");
+        }
+
+        updateMeter();
+    }
+
     public void setPercent(Float percent) {
-        this.percent = percent;
-        NumberFormat format = NumberFormat.getIntegerInstance();
-        percentText.setText(format.format(percent));
+        prevActualUnits = 0f;
+        completedUnits = percent;
         totalUnitText.setText("%");
-        invalidate();
+        updateMeter();
     }
 
     private void fixFontPadding(TextView textView) {
@@ -159,10 +202,19 @@ public class PercentageCircle extends LinearLayout {
         textView.getPaint().getTextBounds(textView.getText().toString(), 0, textView.getText().length(), bounds);
 
         Paint.FontMetrics fm = textView.getPaint().getFontMetrics();
-        int fontPadding  = (int) (fm.ascent - bounds.top - 0.5);
+        int fontPadding = (int) (fm.ascent - bounds.top - 0.5);
 
         textView.setPadding(0, fontPadding, 0, fontPadding);
         textView.setGravity(textView.getGravity() | Gravity.TOP); //make sure that the gravity is set to the top
+    }
+
+    private float getAngleIncrements() {
+        return 360f / (isPercentage() ? 100f : totalUnits);
+
+    }
+
+    private boolean isPercentage() {
+        return totalUnits == null;
     }
 
 }

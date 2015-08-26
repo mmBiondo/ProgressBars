@@ -1,69 +1,69 @@
-package com.example.megan.progressbarexamples.widgets;
-
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.drawable.ColorDrawable;
-import android.util.AttributeSet;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.example.megan.progressbarexamples.R;
-
-public class CircleMeterView extends RelativeLayout {
-
-    private RectF frameBounds;
-    private Paint circlePaint;
-    private Float strokeWidth;
-    private Float actualUnits;
-    private Float prevActualUnits;
-    private Float totalUnits;
-    private Paint progressPaint;
-    private Float sweepAngle;
-    private Float progressAngle;
-    private Float prevAngle;
-    private TextView actualUnitsTV;
-    private TextView totalUnitsTV;
-    private Float angleIncrements;
-
-    // Styleable properties
-    private String centerText;
-    private String smallText;
-    private Integer actualUnitsTextColor;
-    private Integer totalUnitsTextColor;
-    private Integer totalBackgroundColor;
-    private Boolean circleFill;
-    private Integer circleFillColor;
-    private Integer progressBarColor;
-
-    // Defaults
-    private final static float DEFAULT_STROKE_WIDTH = 15f;
-    private final static float DEFAULT_START_ANGLE = 90f;
-    private final static int DEFAULT_TOTAL_BACKGROUND_COLOR = Color.TRANSPARENT;
-    private final static int DEFAULT_CIRCLE_FILL_COLOR = Color.BLACK;
-    private final static int DEFAULT_PROGRESS_BAR_COLOR = Color.GRAY;
-    private final static int DEFAULT_TEXT_COLOR = Color.BLACK;
-
-    public CircleMeterView(Context context) {
-        super(context);
+//package com.example.megan.progressbarexamples.widgets;
+//
+//import android.content.Context;
+//import android.content.res.TypedArray;
+//import android.graphics.Canvas;
+//import android.graphics.Color;
+//import android.graphics.Paint;
+//import android.graphics.RectF;
+//import android.graphics.drawable.ColorDrawable;
+//import android.util.AttributeSet;
+//import android.widget.RelativeLayout;
+//import android.widget.TextView;
+//
+//import com.example.megan.progressbarexamples.R;
+//
+//public class CircleMeterView extends RelativeLayout {
+//
+//    private RectF frameBounds;
+//    private Paint circlePaint;
+//    private Float strokeWidth;
+//    private Float actualUnits;
+//    private Float prevActualUnits;
+//    private Float totalUnits;
+//    private Paint progressPaint;
+//    private Float sweepAngle;
+//    private Float progressAngle;
+//    private Float prevAngle;
+//    private TextView actualUnitsTV;
+//    private TextView totalUnitsTV;
+//    private Float angleIncrements;
+//
+//    // Styleable properties
+//    private String centerText;
+//    private String smallText;
+//    private Integer actualUnitsTextColor;
+//    private Integer totalUnitsTextColor;
+//    private Integer totalBackgroundColor;
+//    private Boolean circleFill;
+//    private Integer circleFillColor;
+//    private Integer progressBarColor;
+//
+//    // Defaults
+//    private final static float DEFAULT_STROKE_WIDTH = 15f;
+//    private final static float DEFAULT_START_ANGLE = 90f;
+//    private final static int DEFAULT_TOTAL_BACKGROUND_COLOR = Color.TRANSPARENT;
+//    private final static int DEFAULT_CIRCLE_FILL_COLOR = Color.BLACK;
+//    private final static int DEFAULT_PROGRESS_BAR_COLOR = Color.GRAY;
+//    private final static int DEFAULT_TEXT_COLOR = Color.BLACK;
+//
+//    public CircleMeterView(Context context) {
+//        super(context);
 //        init();
-    }
-
-    public CircleMeterView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+//    }
+//
+//    public CircleMeterView(Context context, AttributeSet attrs) {
+//        super(context, attrs);
 //        setAttributes(attrs);
 //        init();
-    }
-
-    public CircleMeterView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+//    }
+//
+//    public CircleMeterView(Context context, AttributeSet attrs, int defStyleAttr) {
+//        super(context, attrs, defStyleAttr);
 //        setAttributes(attrs);
 //        init();
-    }
-
+//    }
+//
 //    protected void setAttributes(AttributeSet attrs) {
 //        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CircleMeterView);
 //        try {
@@ -214,4 +214,4 @@ public class CircleMeterView extends RelativeLayout {
 //    private boolean isPercentage() {
 //        return totalUnits == null;
 //    }
-}
+//}
